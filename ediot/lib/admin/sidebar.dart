@@ -20,12 +20,12 @@ class _SideBarState extends State<SideBar> {
         length: 4,
         child: Scaffold(
           body: TabBarView(
-            children: [SelectChat(), MenuPage(), CalendarPage(), Profile()],
+            children: [MenuPage(), SelectChat(), CalendarPage(), Profile()],
           ),
           bottomNavigationBar: TabBar(
             tabs: [
-              Tab(child: Image.asset("images/chat.png")),
               Tab(child: Image.asset("images/ediot.png")),
+              Tab(child: Image.asset("images/chat.png")),
               Tab(child: Image.asset("images/calendar.png")),
               Tab(child: Image.asset("images/menu.png"))
             ],

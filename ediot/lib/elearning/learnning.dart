@@ -1,3 +1,4 @@
+import 'package:ediot/elearning/comment_box.dart';
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 import 'package:video_player/video_player.dart';
@@ -161,7 +162,10 @@ class _Learnning extends State<Learnning> {
                       style: TextStyle(fontSize: 15),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, "/commentBox");
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return Comment_Box();
+                      }));
                     }),
               ),
             )

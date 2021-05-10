@@ -1,7 +1,10 @@
-import 'package:ediot/Sign/login.dart';
-import 'package:ediot/admin/admin_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
+//import '../admin/admin_screen.dart';
+
+void main(){
+  runApp(Profile());
+}
 
 class Profile extends StatefulWidget {
   @override
@@ -9,48 +12,46 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  final auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-            title: Text("Profile"),
-            backgroundColor: Colors.indigo,
-            centerTitle: true),
+          title: Text("Profile"),
+          backgroundColor: Colors.indigo,
+        ),
         body: Container(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(24.0, 0, 24.0, 0),
+            padding: const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 150.0),
             child: Card(
               elevation: 10,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50),
-              ),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
               child: Container(
                 child: Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 50),
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            "https://static.thenounproject.com/png/630740-200.png"),
+                        backgroundImage: NetworkImage("https://static.thenounproject.com/png/630740-200.png"),
                         radius: 100,
                       ),
                     ),
-                    SizedBox(
-                      height: 50,
+
+                    SizedBox(height: 50,),
+
+                    Text("Name",
+                    style: TextStyle(
+                      fontSize: 25,
                     ),
-                    Text(
-                      auth.currentUser!.email!,
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
+
+                    SizedBox(height: 50,),
+
                     Row(),
+
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Container(
@@ -60,21 +61,18 @@ class _ProfileState extends State<Profile> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50),
                           ),
-                          child: Icon(
-                            Icons.group,
-                            color: Colors.white,
-                          ),
+                          child: Icon(Icons.group, color: Colors.white,),
                           color: Colors.green[500],
                           onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return AdminScreen();
-                            }));
-                          },
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return AdminScreen();
+                  }));
                         ),
                       ),
                     ),
+
                     SizedBox(height: 20),
+
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Container(
@@ -88,14 +86,17 @@ class _ProfileState extends State<Profile> {
                           textColor: Colors.white,
                           color: Colors.red[500],
                           onPressed: () {
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) {
-                              return LoginPage();
-                            }));
-                          },
+                    auth.signOut().then((value) {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return LoginPage();
+                      }));
+                    });
                         ),
                       ),
                     ),
+                    
+
                   ],
                 ),
               ),

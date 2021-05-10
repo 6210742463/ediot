@@ -118,7 +118,7 @@ class _CreateRoomState extends State<CreateRoom> {
             children: [
               showImage(context),
               photoButton(),
-              task != null ? buildUploadStatus(task!) : Text("..."),
+              task != null ? buildUploadStatus(task!) : Container(),
               TextFormField(
                 controller: nameController,
                 validator: (String? value) {

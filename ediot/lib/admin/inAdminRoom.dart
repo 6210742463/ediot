@@ -1,58 +1,58 @@
 import 'package:flutter/material.dart';
 
 class AdminMenu extends StatefulWidget {
+  
+
+  late final String name;
+  AdminMenu({Key? key, required this.name}) : super(key: key);
+
   @override
   _AdminMenuState createState() => _AdminMenuState();
 }
 
 class _AdminMenuState extends State<AdminMenu> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('E-Diol')),
-      drawer: SideMenu(),
-    );
-  }
-}
-
-class SideMenu extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
+      body: ListView(
         children: [
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              'Name Class',
-              style: TextStyle(fontSize: 21, color: Colors.blue),
+          Card(
+            clipBehavior: Clip.antiAlias,
+            child: Column(
+              children: [
+                Image.asset('images/IU.jpg'),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    widget.name,
+                    style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                  ),
+                ),
+                ButtonBar(
+                  alignment: MainAxisAlignment.start,
+                  children: [
+                    FlatButton(
+                      onPressed: () {},
+                      child: const Text('View'),
+                    ),
+                    FlatButton(
+                      onPressed: () {},
+                      child: const Text('Edit'),
+                    ),
+                    FlatButton(
+                      onPressed: () {},
+                      child: const Text('Delete'),
+                    )
+                  ],
+                ),
+              ],
             ),
           ),
-          Divider(
-            color: Colors.black,
-          ),
-          ListTile(
-            title: Text('Create Content'),
-            leading: Icon(Icons.add_circle_outline),
-            onTap: () {},
-          ),
-          Divider(
-            color: Colors.black,
-          ),
-          ListTile(
-            title: Text('Edit'),
-            leading: Icon(Icons.app_registration),
-            onTap: () {},
-          ),
-          Divider(
-            color: Colors.black,
-          ),
-          ListTile(
-            title: Text('Delete'),
-            leading: Icon(Icons.delete),
-            onTap: () {},
-          ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Text('add'),
+        backgroundColor: Colors.red[600],
       ),
     );
   }

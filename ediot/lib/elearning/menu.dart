@@ -40,28 +40,31 @@ class _MenuPageState extends State<MenuPage> {
           }
           return ListView(
             children: snapshot.data!.docs.map((document) {
-              return Card(
-                child: Row(
-                  children: [
-                    Text(
-                      document['name'],
-                      style: TextStyle(fontSize: 25),
-                    ),
-                    SizedBox(width: 50),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return Learnning();
-                        }));
-                      },
-                      child: Image.network(
+              return ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return Learnning(value: document['imgPath'].text);
+                  }));
+                },
+                child: Card(
+                  clipBehavior: Clip.antiAlias,
+                  child: Column(
+                    children: [
+                      Image.network(
                         document['imgPath'],
-                        height: MediaQuery.of(context).size.height * 0.3,
-                        width: MediaQuery.of(context).size.width * 0.5,
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        width: MediaQuery.of(context).size.width,
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          document['name'],
+                          style:
+                              TextStyle(color: Colors.black.withOpacity(0.6)),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               );
             }).toList(),

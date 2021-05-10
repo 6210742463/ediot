@@ -1,8 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ediot/Sign/login.dart';
+import 'package:ediot/admin/admin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -13,78 +12,95 @@ class _ProfileState extends State<Profile> {
   final auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Profile"),
-        backgroundColor: Colors.indigo,
-      ),
-      body: Container(
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: CircleAvatar(
-                    radius: 50,
-                    child: Text("P"),
-                  ),
-                ),
-                Container(
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(left: 11),
-                        child: Text(auth.currentUser!.email!),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: FlatButton(
-                height: 50,
-                minWidth: double.infinity,
-                color: Colors.green,
-                child: Text("Group"),
-                textColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Container();
-                  }));
-                },
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+            title: Text("Profile"),
+            backgroundColor: Colors.indigo,
+            centerTitle: true),
+        body: Container(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(24.0, 0, 24.0, 0),
+            child: Card(
+              elevation: 10,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
               ),
-            ),
-            Spacer(),
-            SafeArea(
               child: Container(
-                padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-                child: FlatButton(
-                  height: 50,
-                  minWidth: double.infinity,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  color: Colors.redAccent[700],
-                  child: Text("Logout"),
-                  textColor: Colors.white,
-                  onPressed: () {
-                    auth.signOut().then((value) {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) {
-                        return LoginPage();
-                      }));
-                    });
-                  },
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 50),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            "https://static.thenounproject.com/png/630740-200.png"),
+                        radius: 100,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Text(
+                      auth.currentUser!.email!,
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Container(
+                        height: 50,
+                        child: FlatButton(
+                          minWidth: double.infinity,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Icon(
+                            Icons.group,
+                            color: Colors.white,
+                          ),
+                          color: Colors.green[500],
+                          onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return AdminScreen();
+                            }));
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Container(
+                        height: 50,
+                        child: FlatButton(
+                          minWidth: double.infinity,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Text("Logout"),
+                          textColor: Colors.white,
+                          color: Colors.red[500],
+                          onPressed: () {
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return LoginPage();
+                            }));
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ],
+          ),
         ),
       ),
     );

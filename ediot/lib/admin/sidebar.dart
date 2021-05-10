@@ -1,6 +1,6 @@
 import 'package:ediot/Sign/profile.dart';
 import 'package:ediot/calendar/calendar.dart';
-import 'package:ediot/chat/SelectChat.dart';
+import 'package:ediot/chat/chat.dart';
 
 import 'package:ediot/elearning/menu.dart';
 
@@ -20,12 +20,12 @@ class _SideBarState extends State<SideBar> {
         length: 4,
         child: Scaffold(
           body: TabBarView(
-            children: [SelectChat(), MenuPage(), CalendarPage(), Profile()],
+            children: [MenuPage(), ChatScreen(), CalendarPage(), Profile()],
           ),
           bottomNavigationBar: TabBar(
             tabs: [
-              Tab(child: Image.asset("images/chat.png")),
               Tab(child: Image.asset("images/ediot.png")),
+              Tab(child: Image.asset("images/chat.png")),
               Tab(child: Image.asset("images/calendar.png")),
               Tab(child: Image.asset("images/menu.png"))
             ],

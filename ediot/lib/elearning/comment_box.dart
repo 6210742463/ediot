@@ -1,4 +1,5 @@
 import 'package:comment_box/comment/comment.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Comment_Box extends StatefulWidget {
@@ -10,6 +11,7 @@ class _TestMeState extends State<Comment_Box> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController commentController = TextEditingController();
   List filedata = [];
+  final auth = FirebaseAuth.instance;
 
   Widget commentChild(data) {
     return ListView(
@@ -66,8 +68,7 @@ class _TestMeState extends State<Comment_Box> {
       ),
       body: Container(
         child: CommentBox(
-          userImage:
-              "https://lh3.googleusercontent.com/a-/AOh14GjRHcaendrf6gU5fPIVd8GIl1OgblrMMvGUoCBj4g=s400",
+          userImage: "",
           child: commentChild(filedata),
           labelText: 'Write a comment...',
           withBorder: false,
@@ -77,9 +78,8 @@ class _TestMeState extends State<Comment_Box> {
               print(commentController.text);
               setState(() {
                 var value = {
-                  'name': 'New User',
-                  'pic':
-                      'https://lh3.googleusercontent.com/a-/AOh14GjRHcaendrf6gU5fPIVd8GIl1OgblrMMvGUoCBj4g=s400',
+                  'name': auth.currentUser!.email!,
+                  'pic': '',
                   'message': commentController.text
                 };
                 filedata.insert(0, value);

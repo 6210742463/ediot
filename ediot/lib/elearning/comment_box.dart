@@ -61,7 +61,7 @@ class _TestMeState extends State<Comment_Box> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Comment Box",
+          "Comment  Box",
           textAlign: TextAlign.center,
         ),
         backgroundColor: Colors.purple[400],

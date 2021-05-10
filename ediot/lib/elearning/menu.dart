@@ -53,6 +53,7 @@ class _MenuPageState extends State<MenuPage> {
                       Image.network(
                         document['imgPath'],
                         height: MediaQuery.of(context).size.height * 0.2,
+                        width: MediaQuery.of(context).size.width,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),

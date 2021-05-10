@@ -4,8 +4,9 @@ import 'package:readmore/readmore.dart';
 import 'package:video_player/video_player.dart';
 
 class Learnning extends StatefulWidget {
-  Learnning({Key? key, this.title = ''}) : super(key: key);
+  Learnning({Key? key, this.title = '', required this.value}) : super(key: key);
   final String title;
+  final String value;
   @override
   _Learnning createState() => _Learnning();
 }
@@ -55,7 +56,7 @@ class _Learnning extends State<Learnning> {
         //Header
         centerTitle: true,
         backgroundColor: Color(0xffAB47BC),
-        title: Text("Python For Everybody", style: TextStyle(fontSize: 25)),
+        title: Text(widget.value, style: TextStyle(fontSize: 25)),
       ),
       body: Container(
 //profile Admain

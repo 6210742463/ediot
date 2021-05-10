@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AdminMenu extends StatefulWidget {
+  
+
+  late final String name;
+  AdminMenu({Key? key, required this.name}) : super(key: key);
+
   @override
   _AdminMenuState createState() => _AdminMenuState();
 }
@@ -18,7 +23,7 @@ class _AdminMenuState extends State<AdminMenu> {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    'test description',
+                    widget.name,
                     style: TextStyle(color: Colors.black.withOpacity(0.6)),
                   ),
                 ),

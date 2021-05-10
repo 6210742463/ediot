@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'createRoom.dart';
 
 class AdminScreen extends StatefulWidget {
+  
   @override
   _AdminScreenState createState() => _AdminScreenState();
 }
@@ -54,7 +55,7 @@ class _AdminScreenState extends State<AdminScreen> {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return AdminMenu();
+                        return AdminMenu(name: document['name'].text);
                       }));
                     },
                     child: Container(

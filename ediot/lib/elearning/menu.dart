@@ -43,7 +43,7 @@ class _MenuPageState extends State<MenuPage> {
               return ElevatedButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Learnning();
+                    return Learnning(value: document['imgPath'].text);
                   }));
                 },
                 child: Card(

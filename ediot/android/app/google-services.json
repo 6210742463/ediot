@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "162752761551",
+    "project_id": "ediot-37d79",
+    "storage_bucket": "ediot-37d79.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162752761551:android:b621413ae5fb2a9557f1ba",
+        "android_client_info": {
+          "package_name": "com.example.ediot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162752761551-dnki7jlggbmipsmlg5526506p3f7ccrn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACEkuI7hRcsv-C4O0vyLy5qj3Tjz7ipEY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162752761551-dnki7jlggbmipsmlg5526506p3f7ccrn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ediot/Sign/login.dart';
 import 'package:ediot/model/member.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -208,6 +209,16 @@ class _SignUpState extends State<SignUp> {
                                                       formKey.currentState!
                                                           .save();
                                                       try {
+                                                        Member m = Member(
+                                                            email:
+                                                                member.email);
+                                                        Map<String, dynamic>
+                                                            data = m.toMap();
+                                                        await FirebaseFirestore
+                                                            .instance
+                                                            .collection('email')
+                                                            .doc(member.email)
+                                                            .set(data);
                                                         await FirebaseAuth
                                                             .instance
                                                             .createUserWithEmailAndPassword(

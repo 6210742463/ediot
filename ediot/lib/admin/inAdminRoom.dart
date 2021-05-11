@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 class AdminMenu extends StatefulWidget {
-  
-
-  late final String name;
+  String name;
   AdminMenu({Key? key, required this.name}) : super(key: key);
 
   @override
@@ -19,7 +18,7 @@ class _AdminMenuState extends State<AdminMenu> {
             clipBehavior: Clip.antiAlias,
             child: Column(
               children: [
-                Image.asset('images/IU.jpg'),
+                Image.asset("1.png"),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(

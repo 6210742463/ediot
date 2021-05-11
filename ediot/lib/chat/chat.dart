@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ediot/chat/chat%20appbar.dart';
+import 'package:ediot/chat/chat%20detail%20page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -20,45 +23,44 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(),
-        child: ListView.builder(
-            itemCount: 2,
-            itemBuilder: (context, i) {
-              return InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Scaffold(
-                      body: Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            RaisedButton(
-                              child: Text("back"),
-                              color: Colors.red,
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
+        child: StreamBuilder(
+            stream: FirebaseFirestore.instance.collection('email').snapshots(),
+            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return ListView(
+                children: snapshot.data!.docs.map((document) {
+                  if (document['email'] != auth.currentUser!.email!) {
+                    return ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return ChatDetailPage(value: document['email']);
+                        }));
+                      },
+                      child: Container(
+                        height: 80,
+                        child: Card(
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                  "https://static.thenounproject.com/png/630740-200.png"),
+                              radius: 25,
                             ),
-                          ],
+                            title: Text(document['email']),
+                            subtitle: Text(""),
+                            trailing: Icon(Icons.message_rounded),
+                          ),
                         ),
                       ),
                     );
-                  }));
-                },
-                child: Container(
-                  height: 80,
-                  child: Card(
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            "https://static.thenounproject.com/png/630740-200.png"),
-                        radius: 25,
-                      ),
-                      title: Text("Name"),
-                      subtitle: Text(""),
-                      trailing: Icon(Icons.message_rounded),
-                    ),
-                  ),
-                ),
+                  } else {
+                    return Container();
+                  }
+                }).toList(),
               );
             }),
       ),

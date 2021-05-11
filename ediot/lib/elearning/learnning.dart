@@ -1,4 +1,5 @@
 import 'package:ediot/elearning/comment_box.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 import 'package:video_player/video_player.dart';
@@ -13,15 +14,12 @@ class Learnning extends StatefulWidget {
 
 class _Learnning extends State<Learnning> {
   // ignore: non_constant_identifier_names
-  // infomation Admin User
+
+  final auth = FirebaseAuth.instance;
   bool isVisible = false;
-  List<ListAdmin> data_Admin = [
-    ListAdmin(
-        "AJ jaack Weerachai", "เจ้าหน้าที่ วิศวกรรมศาสตร์", "images/ช้าง.png"),
-  ];
-  //Creating Dropdown
+
   // ignore: non_constant_identifier_names
-  var _Dropdown = ['week1', 'week2', 'week3', 'week4'];
+  var _Dropdown = ['week1'];
   // ignore: non_constant_identifier_names
   var _CurrenciesItem = 'week1';
   // creating show-less more
@@ -49,7 +47,6 @@ class _Learnning extends State<Learnning> {
 
   @override
   Widget build(BuildContext context) {
-    ListAdmin add = data_Admin[0];
     var floatingActionButton;
     return Scaffold(
       appBar: AppBar(
@@ -80,10 +77,9 @@ class _Learnning extends State<Learnning> {
                   ),
                 ),
                 title: Text(
-                  "${add.name}",
+                  "${auth.currentUser!.email!}",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                subtitle: Text("${add.state}"),
               ),
             ),
 //Dropdown
@@ -188,12 +184,4 @@ class _Learnning extends State<Learnning> {
       ),
     );
   }
-}
-
-class ListAdmin {
-  String name;
-  String state;
-  String image;
-
-  ListAdmin(this.name, this.state, this.image);
 }

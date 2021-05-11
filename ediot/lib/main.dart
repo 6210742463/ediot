@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'ediot',
       home: Scaffold(
-        body: AdminScreen(),
+        body: LoginPage(),
       ),
     );
   }

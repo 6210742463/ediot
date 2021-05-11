@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ediot/model/sendms.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,22 +15,18 @@ enum MessageType {
 }
 
 class ChatDetailPage extends StatefulWidget {
+  String value;
+  ChatDetailPage({this.value = ''});
   @override
   _ChatDetailPageState createState() => _ChatDetailPageState();
 }
 
 class _ChatDetailPageState extends State<ChatDetailPage> {
-  List<ChatMessage> chatMessage = [
-    ChatMessage(message: "Hi John", type: MessageType.Receiver),
-    ChatMessage(message: "Hope you are doin good", type: MessageType.Receiver),
-    ChatMessage(
-        message: "Hello Jane, I'm good what about you",
-        type: MessageType.Sender),
-    ChatMessage(
-        message: "I'm fine, Working from home", type: MessageType.Receiver),
-    ChatMessage(message: "Oh! Nice. Same here man", type: MessageType.Sender),
-  ];
-
+  final auth = FirebaseAuth.instance;
+  SendMessage s = SendMessage();
+  List<ChatMessage> chatMessage = [];
+  int? i;
+  var b = TextEditingController();
   List<SendMenuItems> menuItems = [
     SendMenuItems(
         text: "Photos & Videos", icons: Icons.image, color: Colors.amber),
@@ -104,17 +103,30 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ChatAppbar(),
+      appBar: AppBar(title: Text(widget.value)),
       body: Stack(
         children: <Widget>[
-          ListView.builder(
-            itemCount: chatMessage.length,
-            shrinkWrap: true,
-            padding: EdgeInsets.only(top: 10, bottom: 10),
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              return ChatBubble(
-                chatMessage: chatMessage[index],
+          StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection('ms')
+                .orderBy('index')
+                .snapshots(),
+            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return ListView(
+                children: snapshot.data!.docs.map((document) {
+                  i = document["index"];
+                  return Card(
+                    child: Text(
+                      document["conversation"],
+                      style: TextStyle(fontSize: 30),
+                    ),
+                  );
+                }).toList(),
               );
             },
           ),
@@ -131,7 +143,8 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     width: 16,
                   ),
                   Expanded(
-                    child: TextField(
+                    child: TextFormField(
+                      controller: b,
                       decoration: InputDecoration(
                           hintText: "Type message...",
                           hintStyle: TextStyle(color: Colors.grey.shade500),
@@ -147,7 +160,16 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
             child: Container(
               padding: EdgeInsets.only(right: 30, bottom: 50),
               child: FloatingActionButton(
-                onPressed: () {},
+                onPressed: () async {
+                  String k = b.text;
+                  s.conversation = k;
+                  s.index = i! + 1;
+                  Map<String, dynamic> data = s.toMap();
+                  await FirebaseFirestore.instance
+                      .collection('ms')
+                      .doc('$s.index')
+                      .set(data);
+                },
                 child: Icon(
                   Icons.send,
                   color: Colors.white,
